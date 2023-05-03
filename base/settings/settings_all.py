@@ -125,7 +125,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Configurazione log
 import socket, os
-hostname = socket.gethostname()
+# hostname = socket.gethostname()
+hostname = 'dev'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
