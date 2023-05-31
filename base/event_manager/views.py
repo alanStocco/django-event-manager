@@ -9,24 +9,27 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.core.exceptions import PermissionDenied
 from rest_framework.permissions import AllowAny
 
-from .serializers import *
-from .models import *
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 # import the logging library
 import logging
+
+from .serializers import *
+from .models import *
 # Get an instance of a logger
 logger = logging.getLogger('event_manager')
 
 @swagger_auto_schema(
+    order=1,
     method='post',
     operation_description='Registers a new user.',
     request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
-        required=['username', 'password'],
+        required=['username', 'password', 'email'],
         properties={
             'username': openapi.Schema(type=openapi.TYPE_STRING),
             'password': openapi.Schema(type=openapi.TYPE_STRING),
+            'email': openapi.Schema(type=openapi.TYPE_STRING),
         }
     ),
     responses={
@@ -68,6 +71,7 @@ def register_user(request):
     return Response({"success": f"User {user.username} created."}, status=201)
 
 @swagger_auto_schema(
+    order=2,
     method='post',
     request_body = openapi.Schema(
         type=openapi.TYPE_OBJECT,
@@ -133,8 +137,6 @@ def logout_user(request):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-# Users create, edit, fetch, and register to attend events
-
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated])
 def create_event(request):
@@ -160,7 +162,7 @@ def create_event(request):
     -------
     Returns a JSON response with the serialized event object.
     """
-     # get owner based on authenticated user
+    # get owner based on authenticated user
     owner = request.user
     serializer = EventSerializer(data=request.data)
 
@@ -187,9 +189,10 @@ def fetch_user_events(request):
     return Response(serializer.data)
 
 @swagger_auto_schema(
+    order=3,
     method='get',
     operation_description='Get list of events',
-    responses={200: openapi.Response('List of events')}
+    responses={200: openapi.Response('List of events')},
 )
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])

@@ -25,7 +25,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title="Event Manager API",
         default_version='v1',
-        description="API for managing events.",
+        description="API for managing events. Remember in login via Token use value <JWT <access_token>>",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@eventmanager.local"),
         license=openapi.License(name="BSD License"),

@@ -47,6 +47,6 @@ Features:
 
 - API docs swagger TODO finish
 
-- Tests TODO
+- Tests TODO unit_test, pytest? What else?
 
 - Create a frontend to consume the API TODO
