@@ -20,6 +20,6 @@ pytz==2023.3
 requests==2.31.0
 ruamel.yaml==0.17.22
 ruamel.yaml.clib==0.2.7
-sqlparse==0.4.4
+sqlparse==0.5.0
 uritemplate==4.1.1
 urllib3==1.26.18
